@@ -1,65 +1,67 @@
 # Next Store
 
-A modern full-stack e-commerce platform built with Next.js App Router, Tailwind CSS, MongoDB, Cloudinary, and NextAuth OAuth.
+Next Store is a full-stack e-commerce project I built to deliver a modern shopping experience with a complete admin dashboard.
+It covers the full flow from product discovery to checkout, while giving admins full control over products, categories, users, and orders.
 
-## Features
+## Project Highlights
 
-- Email/phone registration and login
-- Google OAuth login
-- Customer and admin roles (admin restrict/approve as soft delete)
-- Profile management with name, address, payment notes
-- Wishlist and favorites
-- Product categories, listings, search, filtering, images, stock, reviews and ratings
-- Cart with add/remove and quantity updates
-- Guest or authenticated checkout
-- Multiple payment methods: Credit Card, PayPal, Cash on Delivery, Wallet
-- Order placement, order history, and admin status tracking
-- Admin management for users, products, categories, orders, and homepage banners
-- Cloudinary image hosting + signed upload API endpoint
+- Customer and admin authentication (credentials + Google OAuth)
+- Role-based access with protected admin routes
+- Full CRUD in admin panel for products, categories, users, and orders
+- Product catalog with filtering, search, featured sections, and reviews
+- Cart, checkout, and order tracking flow
+- Profile and wishlist management
+- Cloudinary integration for image uploads
+
+## Tech Stack
+
+- Frontend: Next.js App Router, React, Tailwind CSS
+- Backend: Next.js Route Handlers (REST-style APIs)
+- Database: MongoDB with Mongoose
+- Auth: NextAuth (Credentials + Google)
+- Media: Cloudinary (signed uploads)
+
+## Admin Dashboard
+
+The admin dashboard is designed as an operations center for the store:
+
+- Manage products (create, update, delete, feature, upload images)
+- Manage categories (create, update, delete with relation checks)
+- Manage users (promote/demote, restrict/approve, delete)
+- Manage orders (status updates and delete support)
+- View store overview metrics and low-stock alerts
+
+## Project Focus
+
+This project focuses on:
+
+- Clean UI/UX for both customer and admin sides
+- Secure role-based authorization
+- Scalable data modeling for real e-commerce operations
+- Practical full-stack implementation using one modern framework
 
 ## Setup
 
-1. Install dependencies (already installed in this scaffold):
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Update `.env.local` with your real credentials:
-   - MONGODB_URI from MongoDB Atlas
-   - NEXTAUTH_SECRET (generate with `openssl rand -base64 32`)
-   - GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET from https://console.cloud.google.com
-   - CLOUDINARY_CLOUD_NAME / CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET from https://cloudinary.com
+2. Configure environment variables in `.env.local`:
 
-3. Run the dev server:
+- `MONGODB_URI`
+- `NEXTAUTH_SECRET`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+
+3. Run the development server:
 
 ```bash
 npm run dev
 ```
 
-4. Visit http://localhost:3000.
-
-## Promote First Admin
-
-Register a normal account first, then in your MongoDB collection set the user document `role` field to `admin`.
-
-## API Endpoints
-
-- `POST /api/auth/register` - register customer
-- `GET/POST /api/products` - list products / admin create
-- `GET/PATCH/DELETE /api/products/:id` - product detail / admin edit / admin delete
-- `POST /api/products/:id/reviews` - authenticated review
-- `GET/POST /api/categories` - list / admin create
-- `GET/POST /api/orders` - list (own/admin all) / create order (guest or auth)
-- `PATCH /api/orders/:id` - admin status change
-- `GET/PATCH /api/profile` - manage profile
-- `POST /api/wishlist` - toggle product in wishlist
-- `GET/POST /api/banners` - manage banners
-- `GET /api/users` / `PATCH /api/users/:id` - admin user management
-- `POST /api/cloudinary/signature` - returns signed upload params for Cloudinary direct upload
-
-## OAuth
-
-Google login is wired through NextAuth. To enable it: create OAuth credentials with redirect URI `http://localhost:3000/api/auth/callback/google` and paste them into `.env.local`.
-
-# ITI-TASK-NextJS-Ecommerce
+4. Open `http://localhost:3000`.
