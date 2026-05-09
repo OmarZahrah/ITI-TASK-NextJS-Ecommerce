@@ -42,6 +42,12 @@ export default function AdminOrdersPage() {
     setOrders((prev) => prev.map((order) => (order._id === id ? { ...order, status } : order)));
   }
 
+  async function remove(id: string) {
+    if (!confirm("Delete this order?")) return;
+    const response = await fetch(`/api/orders/${id}`, { method: "DELETE" });
+    if (response.ok) setOrders((prev) => prev.filter((order) => order._id !== id));
+  }
+
   const filtered = filter === "all" ? orders : orders.filter((order) => order.status === filter);
 
   return (
@@ -102,6 +108,12 @@ export default function AdminOrdersPage() {
                       <option key={status}>{status}</option>
                     ))}
                   </select>
+                  <button
+                    onClick={() => remove(order._id)}
+                    className="rounded-full border border-rose-200 px-3 py-1.5 text-xs text-rose-700 hover:bg-rose-50"
+                  >
+                    Delete
+                  </button>
                 </div>
               );
             })

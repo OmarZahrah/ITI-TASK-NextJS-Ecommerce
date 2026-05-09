@@ -19,7 +19,7 @@ export default function LoginPage() {
       redirect: false,
     });
     setLoading(false);
-    if (result?.ok) router.push("/account");
+    if (result?.ok) router.push("/post-login");
     else setError("Invalid credentials, or your account is restricted.");
   }
 
@@ -62,7 +62,7 @@ export default function LoginPage() {
 
         <button
           type="button"
-          onClick={() => signIn("google", { callbackUrl: "/account" })}
+          onClick={() => signIn("google", { callbackUrl: "/post-login" })}
           className="flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
         >
           <GoogleMark />

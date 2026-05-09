@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { formatCurrency } from "@/lib/format";
@@ -24,15 +25,20 @@ type Order = {
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     if (!session) return;
+    if (session.user.role === "admin") {
+      router.replace("/admin");
+      return;
+    }
     fetch("/api/profile").then((r) => r.json()).then(setProfile);
     fetch("/api/orders").then((r) => r.json()).then(setOrders);
-  }, [session]);
+  }, [router, session]);
 
   if (status === "loading") {
     return <main className="mx-auto max-w-3xl px-4 py-16 text-sm text-slate-500">Loading...</main>;

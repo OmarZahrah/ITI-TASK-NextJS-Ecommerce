@@ -33,6 +33,12 @@ export default function AdminUsersPage() {
     }
   }
 
+  async function remove(id: string) {
+    if (!confirm("Delete this user?")) return;
+    const response = await fetch(`/api/users/${id}`, { method: "DELETE" });
+    if (response.ok) setUsers((prev) => prev.filter((u) => u._id !== id));
+  }
+
   const filtered = search
     ? users.filter(
         (user) =>
@@ -104,6 +110,12 @@ export default function AdminUsersPage() {
                     className="rounded-full border border-slate-200 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
                   >
                     {user.role === "admin" ? "Demote" : "Promote"}
+                  </button>
+                  <button
+                    onClick={() => remove(user._id)}
+                    className="rounded-full border border-rose-200 px-3 py-1.5 text-xs text-rose-700 hover:bg-rose-50"
+                  >
+                    Delete
                   </button>
                 </div>
               </div>
